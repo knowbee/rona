@@ -15,7 +15,7 @@ fs.readFileSync("./test.js")
     } else {
       if (line.match(re_unique)) {
         const named_const = line.split('").')[1].replace(";", "");
-        const package = line.split('").')[0].split('require("')[1];
+        const package = line.split(").")[0].split("require(")[1];
 
         fs.appendFileSync(
           "./output.js",
