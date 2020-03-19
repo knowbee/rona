@@ -1,10 +1,10 @@
 {
-  "name": "shouldbe",
+  "name": "neza",
   "version": "0.0.1",
   "description": "convert your project require syntax to ES6 import syntax as it should be",
   "main": "index.js",
   "bin": {
-    "shouldbe": "index.js"
+    "neza": "index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
