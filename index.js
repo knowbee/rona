@@ -45,20 +45,30 @@ const neza = file => {
       if (line.match(re_normal)) {
         const constant = line.split(" ")[1];
         const package = line.split("(")[1].replace(")", "");
-        fs.appendFileSync(file, `import ${constant} from ${package}` + "\n");
+        fs.appendFileSync(
+          file + "_bak",
+          `import ${constant} from ${package}` + "\n"
+        );
       } else {
         if (line.match(re_unique)) {
           const named_const = line.split('").')[1].replace(";", "");
           const package = line.split(").")[0].split("require(")[1];
           fs.appendFileSync(
-            file,
+            file + "_bak",
             `import {${named_const}} from ${package}` + "\n"
           );
         } else {
-          fs.appendFileSync(file, line + "\n");
+          fs.appendFileSync(file + "_bak", line + "\n");
         }
       }
     });
+
+  // if (file.includes("_bak")) {
+  //   // const checker = file.split("_bak")[0] === file;
+  //   fs.rename(file, file.split("_bak")[0], () => {
+  //     console.log("done");
+  //   });
+  // }
 };
 
 // testing path
@@ -71,3 +81,18 @@ deeper(basedir, (err, res) => {
     neza(file);
   });
 });
+
+setTimeout(() => {
+  deeper(basedir, (err, res) => {
+    if (err) {
+      console.log(err);
+    }
+    res.forEach(file => {
+      if (file.includes("_bak")) {
+        fs.rename(file, file.split("_bak")[0], () => {
+          // console.log("done");
+        });
+      }
+    });
+  });
+}, 500);
