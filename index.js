@@ -37,36 +37,37 @@ const deeper = (dirname, cb) => {
   });
 };
 
+const neza = file => {
+  fs.readFileSync(file)
+    .toString()
+    .split("\n")
+    .forEach(function(line) {
+      if (line.match(re_normal)) {
+        const constant = line.split(" ")[1];
+        const package = line.split("(")[1].replace(")", "");
+        fs.appendFileSync(file, `import ${constant} from ${package}` + "\n");
+      } else {
+        if (line.match(re_unique)) {
+          const named_const = line.split('").')[1].replace(";", "");
+          const package = line.split(").")[0].split("require(")[1];
+          fs.appendFileSync(
+            file,
+            `import {${named_const}} from ${package}` + "\n"
+          );
+        } else {
+          fs.appendFileSync(file, line + "\n");
+        }
+      }
+    });
+};
+
 // testing path
 const basedir = path.join(__dirname + "/data/");
 deeper(basedir, (err, res) => {
   if (err) {
     console.log(err);
   }
-  console.log(res);
+  res.forEach(file => {
+    neza(file);
+  });
 });
-// fs.readFileSync("./test.js")
-//   .toString()
-//   .split("\n")
-//   .forEach(function(line) {
-//     if (line.match(re_normal)) {
-//       const constant = line.split(" ")[1];
-//       const package = line.split("(")[1].replace(")", "");
-//       fs.appendFileSync(
-//         "./output.js",
-//         `import ${constant} from ${package}` + "\n"
-//       );
-//     } else {
-//       if (line.match(re_unique)) {
-//         const named_const = line.split('").')[1].replace(";", "");
-//         const package = line.split(").")[0].split("require(")[1];
-
-//         fs.appendFileSync(
-//           "./output.js",
-//           `import {${named_const}} from ${package}` + "\n"
-//         );
-//       } else {
-//         fs.appendFileSync("./output.js", line + "\n");
-//       }
-//     }
-//   });
