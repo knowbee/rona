@@ -1,0 +1,13 @@
+{
+  "name": "shouldbe",
+  "version": "0.0.1",
+  "description": "convert your project require syntax to ES6 import syntax as it should be",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Igwaneza Bruce <knowbeeinc@gmail.com>",
+  "license": "MIT",
+  "dependencies": {}
+}
