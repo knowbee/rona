@@ -9,10 +9,9 @@ Suppose you have a project or multiple projects that you've been working on for 
 ## Preview
 
 <p>
-    <img src="https://raw.githubusercontent.com/knowbee/hosting/master/assets/rona_before.PNG" width="400px" height="auto" hspace="10"/>==>
+    <img src="https://raw.githubusercontent.com/knowbee/hosting/master/assets/rona_before.PNG" width="400px" height="auto" hspace="10"/>
     <img src="https://raw.githubusercontent.com/knowbee/hosting/master/assets/rona_after.PNG" width="400px" height="auto" hspace="20"/>
 </p>
-
 ## Currently supported conversions
 
 ```js
