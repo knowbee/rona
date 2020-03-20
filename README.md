@@ -8,9 +8,9 @@ Suppose you have a project or multiple projects that you've been working on for 
 
 ### Currently supported conversions
 
-```
-const something = require("example");
-const Ben = require("person").name;
+```js
+const something = require("example"); // => import something from "example";
+const Ben = require("person").name; // => import { name } from "person";
 ```
 
 ### Installation
