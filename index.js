@@ -33,7 +33,7 @@ let deeper = function(dir, filelist) {
   return filelist;
 };
 
-let neza = new Promise((resolve, reject) => {
+let rona = new Promise((resolve, reject) => {
   try {
     const allfiles = resolve(deeper(basedir, files));
     return allfiles;
@@ -42,7 +42,7 @@ let neza = new Promise((resolve, reject) => {
   }
 });
 
-neza
+rona
   .then(res => {
     res.forEach(file => {
       transform(file);
