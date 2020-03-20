@@ -9,7 +9,7 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 // do the magic
-process.argv.slice(2).forEach(function(cmd) {
+process.argv.slice(2).forEach(cmd => {
   if (cmd === "--path" || cmd === "-p") {
     try {
       if (fs.existsSync(process.argv[3])) {
