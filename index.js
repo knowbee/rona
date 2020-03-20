@@ -1,43 +1,58 @@
 #!/usr/bin/env node
-
 const fs = require("fs");
 const path = require("path");
 const re_normal = /([A-Z]?[a-z]\w+)\s+([A-Z]?[a-z]\w+)\s+(=\s+require\(.+?)\);?$/gm; // something like const name = require("name");
 const re_unique = /([A-Z]?[a-z]\w+)\s+([A-Z]?[a-z]\w+)\s+(=\s+require\(.+?)\)(.\w+).+?$/gm; //something like const Bob = require("name").first
 
 // Go deeper no matter how project is structured and get all files with real path
-const deeper = (dirname, cb) => {
-  let files = [];
-  fs.readdir(dirname, (err, list) => {
-    dirname = fs.realpathSync(dirname);
-    if (err) {
-      return cb(err);
+const files = [];
+const basedir = path.join(__dirname + "\\" + "data");
+let deeper = function(dir, filelist) {
+  filelist = filelist || [];
+
+  // if a given path resolves to a file return that file and exit
+  if (fs.statSync(dir).isFile()) {
+    filelist.push(dir);
+    return filelist;
+  }
+  f = fs.readdirSync(dir);
+  dir = fs.realpathSync(dir);
+
+  f.forEach(function(file) {
+    file = dir + "\\" + file;
+    if (fs.statSync(file).isDirectory()) {
+      filelist = deeper(file, filelist);
+    } else {
+      if (
+        (file.includes(".js") && !file.includes(".json")) ||
+        file.includes("_bak")
+      )
+        filelist.push(file);
     }
-    let listlength = list.length;
-    list.forEach(file => {
-      file = dirname + "\\" + file;
-      fs.stat(file, (err, stat) => {
-        if (stat && stat.isFile()) {
-          files.push(file);
-        }
-        if (stat && stat.isDirectory()) {
-          deeper(file, (err, parsed) => {
-            files = files.concat(parsed);
-            if (!--listlength) {
-              cb(null, files);
-            }
-          });
-        } else {
-          if (!--listlength) {
-            cb(null, files);
-          }
-        }
-      });
-    });
   });
+  return filelist;
 };
 
-const neza = file => {
+let neza = new Promise((resolve, reject) => {
+  try {
+    const allfiles = resolve(deeper(basedir, files));
+    return allfiles;
+  } catch (error) {
+    reject(error);
+  }
+});
+
+neza
+  .then(res => {
+    res.forEach(file => {
+      transform(file);
+    });
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+const transform = file => {
   fs.readFileSync(file)
     .toString()
     .split("\n")
@@ -62,37 +77,25 @@ const neza = file => {
         }
       }
     });
-
-  // if (file.includes("_bak")) {
-  //   // const checker = file.split("_bak")[0] === file;
-  //   fs.rename(file, file.split("_bak")[0], () => {
-  //     console.log("done");
-  //   });
-  // }
 };
 
-// testing path
-const basedir = path.join(__dirname + "/data/");
-deeper(basedir, (err, res) => {
-  if (err) {
-    console.log(err);
-  }
-  res.forEach(file => {
-    neza(file);
-  });
-});
-
+// take a cup of coffee wait for 500 millseconds
+const bakfiles = [];
 setTimeout(() => {
-  deeper(basedir, (err, res) => {
-    if (err) {
-      console.log(err);
-    }
-    res.forEach(file => {
+  const files = deeper(basedir, bakfiles);
+
+  // if the path specified only resolves to one file
+  if (files.length == 1 && fs.existsSync(basedir + "_bak")) {
+    const newfile = basedir + "_bak";
+    files.forEach(file => {
+      fs.rename(newfile, newfile.split("_bak")[0], err => {});
+    });
+  } else {
+    // if the path given resolves to a folder with with 1 or more than 1 files
+    files.forEach(file => {
       if (file.includes("_bak")) {
-        fs.rename(file, file.split("_bak")[0], () => {
-          // console.log("done");
-        });
+        fs.rename(file, file.split("_bak")[0], err => {});
       }
     });
-  });
+  }
 }, 500);
