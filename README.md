@@ -6,14 +6,14 @@
 
 Suppose you have a project or multiple projects that you've been working on for like a year with ("old fashioned" require syntax) then all of a sudden you decide to adopt this new ES6 syntax("cool" import syntax), but how are you gonna be able to convert every line out of 100 files 😭 to adopt this new style 🤔? well **rona** got your back 😉
 
-### Currently supported conversions
+## Currently supported conversions
 
 ```js
 const something = require("example"); // => import something from "example";
 const Ben = require("person").name; // => import { name } from "person";
 ```
 
-### Installation
+## Installation
 
 ```
 npm install -g rona

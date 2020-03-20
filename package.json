@@ -30,6 +30,7 @@
   "homepage": "https://github.com/knowbee/rona#readme",
   "license": "MIT",
   "dependencies": {
-    "commander": "^5.0.0"
+    "commander": "^5.0.0",
+    "ora": "^4.0.3"
   }
 }
