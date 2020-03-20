@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 const fs = require("fs");
 const path = require("path");
+const { helper } = require("./lib/help");
 const re_normal = /([A-Z]?[a-z]\w+)\s+([A-Z]?[a-z]\w+)\s+(=\s+require\(.+?)\);?$/gm; // something like const name = require("name");
 const re_unique = /([A-Z]?[a-z]\w+)\s+([A-Z]?[a-z]\w+)\s+(=\s+require\(.+?)\)(.\w+).+?$/gm; //something like const Bob = require("name").first
 
+helper();
+
+if (process.argv.length < 3) {
+  console.error(`Usage: rona --path <Path Name>`);
+  process.exit(1);
+}
+
 // Go deeper no matter how project is structured and get all files with real path
 const files = [];
-const basedir = path.join(__dirname + "\\" + "data");
+basedir = process.argv[3];
 let deeper = function(dir, filelist) {
   filelist = filelist || [];
 
@@ -42,15 +50,34 @@ let rona = new Promise((resolve, reject) => {
   }
 });
 
-rona
-  .then(res => {
-    res.forEach(file => {
-      transform(file);
-    });
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// do the magic
+process.argv.slice(2).forEach(function(cmd) {
+  if (cmd === "--path" || cmd === "-p") {
+    try {
+      if (fs.existsSync(process.argv[3])) {
+        try {
+          rona
+            .then(res => {
+              res.forEach(file => {
+                transform(file);
+              });
+            })
+            .catch(error => {
+              console.log(error);
+            });
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("");
+        console.log("  $ rona --help");
+        process.exit();
+      }
+    } catch (error) {
+      console.log("invalid path");
+    }
+  }
+});
 
 const transform = file => {
   fs.readFileSync(file)

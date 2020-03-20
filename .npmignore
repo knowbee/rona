@@ -1,0 +1,6 @@
+.npmignore
+CONTRIBUTING.md
+CONTRIBUTOR_COVENANT.md
+test/
+.travis.yml
+data/

@@ -1,7 +1,7 @@
 {
   "name": "rona",
   "version": "0.0.1",
-  "description": "convert your project require syntax to ES6 import syntax as it should be",
+  "description": "convert your project require syntax to ES6 import syntax, it converts all files as it should",
   "main": "index.js",
   "bin": {
     "rona": "index.js"
@@ -9,8 +9,27 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
   },
-  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knowbee/rona.git"
+  },
+  "keywords": [
+    "require",
+    "import",
+    "convert",
+    "rona",
+    "transformer",
+    "convert require",
+    "convert require to import",
+    "convert syntax"
+  ],
   "author": "Igwaneza Bruce <knowbeeinc@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/knowbee/rona/issues"
+  },
+  "homepage": "https://github.com/knowbee/rona#readme",
   "license": "MIT",
-  "dependencies": {}
+  "dependencies": {
+    "commander": "^5.0.0"
+  }
 }
