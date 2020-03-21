@@ -19,6 +19,7 @@ Suppose you have a project or multiple projects that you've been working on for 
 const something = require("example"); // => import something from "example";
 const Ben = require("person").name; // => import { name as Ben } from "person";
 const { something } = require("things"); // => import { something } from "things";
+const { something, anotherThing } = require("things"); // => import { something, anotherThing } from "things";
 ```
 
 ## Installation
