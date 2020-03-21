@@ -31,12 +31,12 @@ process.argv.slice(2).forEach(cmd => {
             spinner.succeed("done");
           })
           .catch(error => {
-            console.log("path not found");
+            process.exit(1);
           });
       } else {
         console.log("");
         console.log("  $ rona --help");
-        process.exit();
+        process.exit(0);
       }
     } catch (error) {
       console.log("invalid path");
