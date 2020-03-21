@@ -20,6 +20,7 @@ const something = require("example"); // => import something from "example";
 const Ben = require("person").name; // => import { name as Ben } from "person";
 const { something } = require("things"); // => import { something } from "things";
 const { something, anotherThing } = require("things"); // => import { something, anotherThing } from "things";
+require("things"); // => import "things";
 ```
 
 ## Installation
