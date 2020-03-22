@@ -23,6 +23,7 @@ const { something, anotherThing } = require("things"); // => import { something,
 const something = require("things")(); // => import something from "things";
 require("things"); // => import "things";
 require("../things"); // => import "../things";
+const something = require("things").something(); // => import { something } from "things";
 ```
 
 ## Installation
