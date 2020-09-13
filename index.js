@@ -17,7 +17,6 @@ if (process.argv.length < 3) {
   console.error(`Usage: rona --path <Path Name>`);
   process.exit(1);
 }
-// do the magic
 process.argv.slice(2).forEach(cmd => {
   if (cmd === "--path" || cmd === "-p") {
     try {
