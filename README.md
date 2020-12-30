@@ -1,11 +1,11 @@
-# rona (inspired by covid-19 😈)
+# rona
 
 [![Build Status](https://travis-ci.com/knowbee/rona.svg?token=yN9jXnk59suszMqNsJJb&branch=master)](https://travis-ci.com/knowbee/rona)
 [![npm](https://img.shields.io/npm/dt/rona.svg)](https://www.npmjs.com/package/rona)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
-Suppose you have a project or multiple projects that you've been working on for like a year with ("old fashioned" require syntax) then all of a sudden you decide to adopt this new ES6 syntax("cool" import syntax), but how are you gonna be able to convert every line out of 100 files 😭 to adopt this new style 🤔? well **rona** got your back 😉
+    convert require syntax to ES6 import syntax
 
 ## Preview
 
