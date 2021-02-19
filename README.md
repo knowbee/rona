@@ -7,13 +7,6 @@
 
     convert require syntax to ES6 import syntax
 
-## Preview
-
-<p>
-    <img src="https://raw.githubusercontent.com/knowbee/hosting/master/assets/rona_before.PNG" width="400px" height="auto" hspace="10"/>
-    <img src="https://raw.githubusercontent.com/knowbee/hosting/master/assets/rona_after.PNG" width="400px" height="auto" hspace="20"/>
-</p>
-
 ## Currently supported conversions
 
 ```js
@@ -25,6 +18,20 @@ const something = require("things")(); // => import something from "things";
 require("things"); // => import "things";
 require("../things"); // => import "../things";
 const something = require("things").something(); // => import { something } from "things";
+const {
+  thing,
+  anotherThing,
+  widget,
+  shape,
+  color,
+} = require("module"); // => import {
+  thing,
+  anotherThing,
+  widget,
+  shape,
+  color,
+ } from "module"
+const { thing: thingRenamed } = require("module"); // => import { thing as thingRenamed } from "module";
 ```
 
 ## Installation
