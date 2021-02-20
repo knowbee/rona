@@ -1,6 +1,6 @@
 {
   "name": "rona",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "convert your project require syntax to ES6 import syntax, it converts all files as it should",
   "main": "index.js",
   "bin": {
@@ -20,6 +20,7 @@
     "rona",
     "transformer",
     "convert require",
+    "require to import",
     "convert require to import",
     "convert syntax"
   ],
